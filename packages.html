@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TourVibe – Packages</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">TourVibe</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="packages.html">Packages</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Packages Section -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="fw-bold text-center mb-4">All Tour Packages</h2>
+    <div class="row g-4">
+
+      <!-- Cox’s Bazar -->
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img src="https://source.unsplash.com/400x300/?beach,sea" class="card-img-top" alt="Cox’s Bazar">
+          <div class="card-body">
+            <h5 class="card-title">Cox’s Bazar</h5>
+            <p class="card-text">Enjoy the world’s longest sea beach, seafood, and water sports.</p>
+            <p class="fw-bold text-success">৳8,500 / person</p>
+            <a href="index.html#booking" class="btn btn-primary book-btn" data-package="Cox’s Bazar">Book Now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sylhet -->
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img src="https://source.unsplash.com/400x300/?tea-garden,sylhet" class="card-img-top" alt="Sylhet">
+          <div class="card-body">
+            <h5 class="card-title">Sylhet</h5>
+            <p class="card-text">Tea gardens, waterfalls, Ratargul swamp forest, and Jaflong river.</p>
+            <p class="fw-bold text-success">৳7,000 / person</p>
+            <a href="index.html#booking" class="btn btn-primary book-btn" data-package="Sylhet">Book Now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sundarbans -->
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img src="https://source.unsplash.com/400x300/?forest,tiger" class="card-img-top" alt="Sundarbans">
+          <div class="card-body">
+            <h5 class="card-title">Sundarbans</h5>
+            <p class="card-text">Explore the mangrove forest & experience the Royal Bengal Tiger’s home.</p>
+            <p class="fw-bold text-success">৳9,500 / person</p>
+            <a href="index.html#booking" class="btn btn-primary book-btn" data-package="Sundarbans">Book Now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bandarban -->
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img src="https://source.unsplash.com/400x300/?mountain,hill" class="card-img-top" alt="Bandarban">
+          <div class="card-body">
+            <h5 class="card-title">Bandarban</h5>
+            <p class="card-text">Hills, waterfalls, tribal culture, and peaceful landscapes.</p>
+            <p class="fw-bold text-success">৳8,000 / person</p>
+            <a href="index.html#booking" class="btn btn-primary book-btn" data-package="Bandarban">Book Now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Srimangal -->
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img src="https://source.unsplash.com/400x300/?tea,green" class="card-img-top" alt="Srimangal">
+          <div class="card-body">
+            <h5 class="card-title">Srimangal</h5>
+            <p class="card-text">Land of two leaves and a bud, famous for seven-layer tea.</p>
+            <p class="fw-bold text-success">৳6,500 / person</p>
+            <a href="index.html#booking" class="btn btn-primary book-btn" data-package="Srimangal">Book Now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kuakata -->
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img src="https://source.unsplash.com/400x300/?sunrise,beach" class="card-img-top" alt="Kuakata">
+          <div class="card-body">
+            <h5 class="card-title">Kuakata</h5>
+            <p class="card-text">The only beach in Bangladesh to enjoy both sunrise & sunset views.</p>
+            <p class="fw-bold text-success">৳7,500 / person</p>
+            <a href="index.html#booking" class="btn btn-primary book-btn" data-package="Kuakata">Book Now</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="text-white text-center py-3">
+  <p class="mb-0">© 2025 TourVibe – All Rights Reserved</p>
+</footer>
+
+<script>
+  // Save selected package to localStorage before redirect
+  document.querySelectorAll(".book-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const selectedPackage = btn.getAttribute("data-package");
+      localStorage.setItem("selectedPackage", selectedPackage);
+    });
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
