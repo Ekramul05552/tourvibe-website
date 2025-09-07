@@ -163,21 +163,21 @@ body { font-family: 'Poppins', sans-serif; margin: 0; color: #333; background: #
   </div>
 </div>
 
-<div class="container text-center py-5">
-  <a href="https://tourvibe.me/" 
-   style="position:fixed; bottom:20px; right:20px; 
+<a href="https://tourvibe.me/" 
+   style="position:fixed; bottom:80px; right:20px; 
           background:linear-gradient(135deg, #ff7a00, #00a859); 
-          color:#fff; padding:14px 26px; border-radius:12px; 
-          font-weight:bold; text-decoration:none; 
-          font-family:sans-serif; font-size:15px; 
-          box-shadow:0 4px 12px rgba(0,0,0,0.25); 
+          color:#fff; padding:12px 18px; border-radius:50px; 
+          font-weight:600; text-decoration:none; 
+          font-family:sans-serif; font-size:14px; 
+          box-shadow:0 4px 10px rgba(0,0,0,0.25); 
           transition:all 0.3s ease; 
-          transform:scale(1);"
+          transform:scale(1); z-index:9999; 
+          display:flex; align-items:center; gap:8px;"
    onmouseover="this.style.transform='scale(1.1)'" 
-   onmouseout="this.style.transform='scale(1)'">
-   ⬅ Back to TourVibe Main Website
+   onmouseout="this.style.transform='scale(1)'"
+   title="Go to TourVibe Homepage">
+   ⬅ <span>TourVibe Main Website</span>
 </a>
-  
    <!-- Google Maps Embed -->
   <div class="mt-4">
     <h3>📍 Find Us on Map</h3>
@@ -377,3 +377,4 @@ backToTopBtn.addEventListener('click',()=>{ window.scrollTo({top:0, behavior:'sm
 </body>
 
 </html>
+
