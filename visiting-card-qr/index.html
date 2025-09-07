@@ -1,155 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visiting Card QR – TourVibe</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f5f5f5;
-      overflow-x: hidden; /* ✅ removes extra right space */
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TourVibe – Scan & Tour</title>
+<link rel="icon" href="tourvibe-logo.png">
+<meta name="description" content="TourVibe – Best Bangladesh Tour Packages. Book Cox’s Bazar, Sylhet, Sundarbans, and more with ease.">
+<meta name="keywords" content="Bangladesh tours, TourVibe, Cox’s Bazar, Sylhet, Sundarbans, Bandarban, Kuakata, Rangamati, travel packages">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
-    header {
-      background: linear-gradient(135deg, #ff7a00, #00a859);
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
+<style>
+html { scroll-behavior: smooth; }
+body { font-family: 'Poppins', sans-serif; margin: 0; color: #333; background: #fff; }
 
-    h1 {
-      margin: 0;
-    }
+/* Promo Banner */
+.promo-banner {
+  background: #f77e01;
+  color: white;
+  text-align: center;
+  padding: 8px;
+  font-weight: 600;
+}
 
-    .container {
-      padding: 20px;
-      text-align: center;
-    }
+/* Parallax background */
+.parallax {
+  background-image: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80");
+  min-height: 100vh;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+  position: relative;
+}
+.parallax::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.3));
+}
+.overlay {
+  position: relative;
+  z-index: 1;
+  background: rgba(0,0,0,0.55);
+  padding: 50px 20px;
+  border-radius: 20px;
+}
 
-    .btn {
-      display: inline-block;
-      background: #ff7a00;
-      color: #fff;
-      padding: 12px 24px;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
+/* Logo */
+.logo-container {
+  display: inline-block;
+  background: rgba(255,255,255,0.9);
+  border-radius: 25px;
+  padding: 15px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: scale(0.8);
+  animation: logoFadeIn 1s forwards;
+}
+.logo { max-width: 280px; width: 100%; height: auto; display: block; margin: auto; }
+@keyframes logoFadeIn { 0% {opacity:0;transform:scale(0.8);} 60% {opacity:1;transform:scale(1.05);} 100% {opacity:1;transform:scale(1);} }
 
-    .btn:hover {
-      background: #e56e00;
-    }
+/* Packages */
+.card {
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s, opacity 0.6s;
+  opacity: 0;
+  transform: translateY(30px);
+  background: white;
+  cursor: pointer;
+}
+.card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+.card.show { opacity: 1; transform: translateY(0); }
+.card.selected { border: 2px solid #f77e01; background: #fff7f0; }
 
-    .map {
-      margin-top: 30px;
-      text-align: center;
-    }
+/* Submit Button */
+.btn-brand {
+  background: linear-gradient(45deg, #f77e01, #ff9900);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  animation: pulse 2s infinite;
+}
+.btn-brand:hover { background: linear-gradient(45deg, #e67300, #ff8800); }
+@keyframes pulse { 0% {transform:scale(1);} 50% {transform:scale(1.03);} 100% {transform:scale(1);} }
+.btn-bounce { animation: bounce 0.3s; }
+@keyframes bounce { 0%{transform:scale(1);} 50%{transform:scale(1.1);} 100%{transform:scale(1);} }
 
-    iframe {
-      width: 100%;
-      height: 300px;
-      border: 0;
-      border-radius: 10px;
-    }
+/* Form focus */
+.form-control:focus, .form-select:focus {
+  border-color: #f77e01;
+  box-shadow: 0 0 6px rgba(247,126,1,0.4);
+}
 
-    /* Back to TourVibe button */
-    .main-website-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: linear-gradient(135deg, #ff7a00, #00a859);
-      color: #fff;
-      padding: 14px 26px;
-      border-radius: 12px;
-      font-weight: bold;
-      text-decoration: none;
-      font-family: sans-serif;
-      font-size: 15px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-      transition: all 0.3s ease;
-      transform: scale(1);
-      z-index: 9999;
-      white-space: nowrap; /* ✅ prevent breaking */
-    }
+/* Loading Spinner */
+.spinner {
+  border: 3px solid #f3f3f3; 
+  border-top: 3px solid white; 
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-    .main-website-btn:hover {
-      transform: scale(1.1);
-    }
+/* WhatsApp & Call */
+.whatsapp-btn, .call-btn {
+  font-weight: bold; padding: 12px 20px; border-radius: 30px; display: inline-block; text-decoration: none; margin:5px;
+}
+.whatsapp-btn { background: #25D366; color:white; }
+.whatsapp-btn:hover { background: #1ebe5c; color:white; }
+.call-btn { background: #007BFF; color:white; }
+.call-btn:hover { background: #0056b3; }
 
-    /* Scroll-to-top button */
-    #backToTop {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background: #007bff;
-      color: #fff;
-      border: none;
-      padding: 12px 15px;
-      border-radius: 50%;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-      z-index: 9999;
-      transition: all 0.3s ease;
-      display: none;
-      font-size: 18px;
-    }
+/* Back-to-top button */
+#backToTop {
+  position: fixed; bottom: 30px; right: 30px; background: #f77e01; color:white;
+  padding:12px 18px; border-radius:50px; font-size:18px; cursor:pointer; display:none; z-index:1000;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3); transition: opacity 0.3s, transform 0.3s;
+}
+#backToTop:hover { background:#e67300; transform:scale(1.1); }
 
-    #backToTop:hover {
-      transform: scale(1.1);
-    }
+/* Trust Badges */
+.badges i {
+  font-size: 28px; color: #f77e01;
+}
+.badges p {
+  margin-top: 5px; font-weight: 600;
+}
 
-    /* ✅ Mobile responsive fix */
-    @media (max-width: 480px) {
-      .main-website-btn {
-        font-size: 13px;
-        padding: 12px 20px;
-        bottom: 15px;
-        right: 15px;
-      }
-    }
-  </style>
+@media (max-width:768px){ .logo{max-width:200px;} .overlay{padding:30px 15px;} .card{margin-bottom:20px;} }
+</style>
 </head>
 <body>
-  <header>
-    <h1>Visiting Card QR</h1>
-    <p>Scan & Explore with TourVibe</p>
-  </header>
 
-  <div class="container">
-    <a href="#" class="btn">📞 Contact Us</a>
-    <br><br>
-    <a href="https://facebook.com" target="_blank" class="btn" style="background:#3b5998;">👍 Facebook Page</a>
+<!-- Promo Banner -->
+<div class="promo-banner">
+  🎉 Limited Offer: Book before Sept 30 & Get 10% OFF!
+</div>
+
+<!-- Hero Parallax -->
+<div class="parallax">
+  <div class="overlay text-center">
+    <div class="logo-container"><img src="tourvibe-logo.png" alt="TourVibe Logo" class="logo"></div>
+    <h1>🌍 Welcome to TourVibe!</h1>
+    <p class="lead">Discover Bangladesh with our exclusive packages.</p>
+    <a href="#bookingFormSection" class="btn btn-brand mt-3">🚀 Book Now</a>
+    <p class="mt-3">📌 Follow us on
+      <a href="https://www.facebook.com/thetourvibe" target="_blank" style="color:#FFD700;">Facebook Page</a>
+    </p>
+  </div>
+</div>
+
+<div class="container text-center py-5">
+
+   <!-- Google Maps Embed -->
+  <div class="mt-4">
+    <h3>📍 Find Us on Map</h3>
+     <div class="map-responsive">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3648.447901157161!2d90.39834867389716!3d23.87373108403309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c52afffc14ad%3A0x4ab85dabb2e42cbc!2sEME%20Air%20International!5e0!3m2!1sen!2sbd!4v1757177773940!5m2!1sen!2sbd" 
+          width="600" 
+          height="450" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+  </div>
   </div>
 
-  <div class="map">
-    <h2>📍 Find Us on Map</h2>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3648.4348861152166!2d90.39815507389719!3d23.874192884015287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sEME%20Air%20International!5e0!3m2!1sen!2sbd!4v1694012345678" allowfullscreen="" loading="lazy"></iframe>
+  <!-- Packages -->
+  <h2 class="mb-4">✨ Our Travel Packages</h2>
+  <div class="row g-4">
+    <!-- same package cards -->
+    <div class="col-md-4"><div class="card p-3" data-package="Cox’s Bazar"><h3>🏖️ Cox’s Bazar Tour</h3><p>3 Days / 2 Nights – Starting from 6,500৳</p></div></div>
+    <div class="col-md-4"><div class="card p-3" data-package="Sylhet"><h3>⛰️ Sylhet Adventure</h3><p>2 Days / 1 Night – Starting from 4,800৳</p></div></div>
+    <div class="col-md-4"><div class="card p-3" data-package="Bandarban"><h3>🌲 Bandarban Escape</h3><p>3 Days / 2 Nights – Starting from 7,200৳</p></div></div>
+    <div class="col-md-4"><div class="card p-3" data-package="Sundarbans"><h3>🛶 Sundarbans Safari</h3><p>2 Days / 1 Night – Starting from 5,500৳</p></div></div>
+    <div class="col-md-4"><div class="card p-3" data-package="Kuakata"><h3>🌅 Kuakata Sunrise</h3><p>3 Days / 2 Nights – Starting from 6,700৳</p></div></div>
+    <div class="col-md-4"><div class="card p-3" data-package="Rangamati"><h3>🏞️ Rangamati Retreat</h3><p>2 Days / 1 Night – Starting from 4,900৳</p></div></div>
   </div>
 
-  <!-- Back to TourVibe Main Website -->
-  <a href="https://tourvibe.me/" class="main-website-btn">⬅ Back to TourVibe Main Website</a>
+  <!-- Trust Badges -->
+  <div class="row text-center my-5 badges">
+    <div class="col-md-4"><i class="bi bi-shield-check"></i><p>Licensed Operator</p></div>
+    <div class="col-md-4"><i class="bi bi-credit-card"></i><p>Secure Payment</p></div>
+    <div class="col-md-4"><i class="bi bi-award"></i><p>5+ Years Experience</p></div>
+  </div>
 
-  <!-- Scroll-to-top Button -->
-  <div id="backToTop">⬆️</div>
+  <!-- Booking Form -->
+  <h2 class="mt-5" id="bookingFormSection">📩 Book Your Spot Now</h2>
+  <form id="bookingForm" class="mt-3 p-3 border rounded" style="max-width:400px; margin:auto;">
+    <div class="mb-3">
+      <input type="text" id="name" name="name" placeholder="Your Name" required pattern="[A-Za-z\s]+" title="Only letters are allowed" class="form-control" autocomplete="name">
+    </div>
+    <div class="mb-3">
+      <input type="tel" id="phone" name="phoneNumber" placeholder="Your Phone Number" required pattern="^0[0-9]{10}$" maxlength="11" title="Phone number must be exactly 11 digits" class="form-control" autocomplete="tel">
+    </div>
+    <div class="mb-3">
+      <select id="package" name="package" required class="form-select">
+        <option value="">Choose a Package</option>
+        <option value="Cox’s Bazar">Cox’s Bazar</option>
+        <option value="Sylhet">Sylhet</option>
+        <option value="Bandarban">Bandarban</option>
+        <option value="Sundarbans">Sundarbans</option>
+        <option value="Kuakata">Kuakata</option>
+        <option value="Rangamati">Rangamati</option>
+      </select>
+    </div>
+    <button type="submit" id="submitBtn" class="btn btn-brand w-100">Submit</button>
+  </form>
 
-  <script>
-    const backToTop = document.getElementById("backToTop");
+  <!-- WhatsApp & Call -->
+  <div class="mt-4">
+    <a href="https://wa.me/8801990723902?text=Hi%20TourVibe!%20I%20want%20to%20know%20about%20your%20packages." class="whatsapp-btn">💬 Chat on WhatsApp</a>
+    <a href="tel:+8801990723902" class="call-btn">📞 Call Now</a>
+  </div>
+</div>
 
-    window.onscroll = function () {
-      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        backToTop.style.display = "block";
-      } else {
-        backToTop.style.display = "none";
-      }
-    };
+<!-- Redesigned Section: Booking + Facebook + Testimonials + Promo Banner -->
+<div class="container my-5">
+  <div class="row g-4">
 
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  </script>
+    <!-- Facebook Section -->
+    <div class="col-md-6">
+      <div class="card shadow rounded-3">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+          <span><i class="bi bi-facebook"></i> TourVibe on Facebook</span>
+          <a href="https://www.facebook.com/thetourvibe" target="_blank" class="btn btn-light btn-sm">Follow</a>
+        </div>
+        <div class="card-body text-center">
+          <div class="fb-page"
+            data-href="https://www.facebook.com/thetourvibe"
+            data-tabs="timeline"
+            data-width="350"
+            data-height="400"
+            data-small-header="false"
+            data-adapt-container-width="true"
+            data-hide-cover="false"
+            data-show-facepile="true"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonials Carousel -->
+    <div class="col-md-6">
+      <div class="card shadow rounded-3">
+        <div class="card-header bg-warning text-dark">
+          <i class="bi bi-chat-quote"></i> What Our Customers Say
+        </div>
+        <div class="card-body">
+          <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active text-center">
+                <p class="mb-2">⭐⭐⭐⭐⭐</p>
+                <p>"Amazing experience! Highly recommended."</p>
+                <footer class="blockquote-footer">Sarah, Dhaka</footer>
+              </div>
+              <div class="carousel-item text-center">
+                <p class="mb-2">⭐⭐⭐⭐⭐</p>
+                <p>"Great service and friendly guides."</p>
+                <footer class="blockquote-footer">Rahim, Chattogram</footer>
+              </div>
+              <div class="carousel-item text-center">
+                <p class="mb-2">⭐⭐⭐⭐⭐</p>
+                <p>"Well organized and worth every penny!"</p>
+                <footer class="blockquote-footer">Nadia, Sylhet</footer>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Promo Banner -->
+    <div class="col-12">
+      <div class="card shadow-lg border-0 text-center bg-danger text-white py-4 rounded-3">
+        <h3><i class="bi bi-gift"></i> Special Offer!</h3>
+        <p>Book now and get <strong>20% OFF</strong> on your first tour package.</p>
+        <a href="#bookingFormSection" class="btn btn-light btn-lg">Grab the Deal</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-4">
+  <p>📍 House -04(2nd floor), Road -12, Sector -06, Uttara House Building, Uttara, Dhaka-1230</p>
+  <p>📞 +8801990723902 | ✉️ thetourvibe@gmail.com</p>
+  <p>
+    <a href="https://www.facebook.com/thetourvibe" target="_blank" class="text-white me-2"><i class="bi bi-facebook"></i></a>
+    <a href="https://wa.me/8801990723902" target="_blank" class="text-white me-2"><i class="bi bi-whatsapp"></i></a>
+  </p>
+  <small>© 2025 TourVibe. All Rights Reserved.</small>
+</footer>
+
+<!-- Facebook SDK -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0"></script>
+
+<!-- Back to Top -->
+<div id="backToTop">⬆️</div>
+
+<script>
+const cards = document.querySelectorAll('.card');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => { if (entry.isIntersecting){ entry.target.classList.add('show'); observer.unobserve(entry.target); } });
+}, { threshold:0.2 });
+cards.forEach(card => observer.observe(card));
+
+cards.forEach(card => {
+  card.addEventListener('click', () => {
+    cards.forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    const selectedPackage = card.getAttribute('data-package');
+    if (selectedPackage) {
+      document.getElementById('package').value = selectedPackage;
+      document.getElementById('bookingFormSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+const form = document.getElementById('bookingForm');
+const submitBtn = document.getElementById('submitBtn');
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  submitBtn.classList.add('btn-bounce');
+  setTimeout(()=>submitBtn.classList.remove('btn-bounce'),300);
+
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<span class="spinner"></span> Submitting...';
+
+  const formData = new FormData(form);
+  fetch('https://script.google.com/macros/s/AKfycbxF1QalS1lGGHsV1rzcsgUxOHgXOKFC12YrIon1dW7qe6pNOsticUc3A4T9hI7lmod0eg/exec', {
+    method:'POST', body: formData
+  })
+  .then(() => { window.location.href = "thankyou.html"; })
+  .catch(err => {
+    console.error('Error!', err.message);
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = 'Submit';
+  });
+});
+
+const backToTopBtn = document.getElementById('backToTop');
+window.addEventListener('scroll',()=>{ backToTopBtn.style.display=(window.scrollY>300)?'block':'none'; });
+backToTopBtn.addEventListener('click',()=>{ window.scrollTo({top:0, behavior:'smooth'}); });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
