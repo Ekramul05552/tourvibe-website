@@ -2,482 +2,108 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TourVibe AI Agent</title>
+
+  <!-- TailwindCSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root { --tv-accent: #06b6d4; }
-    html { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
-    .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,0.7); }
+    body { font-family: 'Inter', sans-serif; }
+    .glass {
+      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.7);
+    }
     .scrollbar-thin { scrollbar-width: thin; }
-    .scrollbar-thin::-webkit-scrollbar { height: 6px; width: 6px; }
-    .scrollbar-thin::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    .scrollbar-thin::-webkit-scrollbar { width: 6px; }
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
   </style>
 </head>
-<body class="bg-slate-50">
-  <!--
-    ================================
-    TOURVIBE AI – FREE, NO API KEYS
-    ================================
-    What you get:
-    • In-browser AI (WebLLM) – optional, free. Falls back to rule-based replies if model isn't loaded.
-    • Voice input + voice replies (Web Speech API – free in Chrome/Edge).
-    • Package search, filters, smart recommendations, itinerary maker (client-side).
-    • Lead capture to Google Sheets (via Apps Script webhook) – optional.
-    • WhatsApp quick-quote link.
+<body class="bg-slate-100 min-h-screen flex items-center justify-center p-4">
 
-    How to use (quick):
-    1) Put this file anywhere on your site (e.g., /ai-agent.html) and link to it OR embed the <iframe> snippet at the bottom.
-    2) Configure the constants in CONFIG below (AGENCY_NAME, WHATSAPP_NUMBER, WEBHOOK_URL, etc.).
-    3) Add/modify PACKAGES to match your real inventory.
+  <div class="w-full max-w-2xl glass rounded-2xl shadow-lg border border-slate-200 p-6">
+    <h1 class="text-2xl font-bold text-slate-800 mb-3">🤖 TourVibe AI Agent</h1>
+    <p class="text-slate-600 mb-4">Ask me anything about <strong>TourVibe packages, Sylhet trips, pricing, booking info</strong> — I’ll guide you!</p>
+    
+    <!-- Chat Window -->
+    <div id="chat-box" class="h-96 overflow-y-auto bg-white rounded-xl p-4 border scrollbar-thin mb-4">
+      <div class="text-slate-500 text-sm">Agent is ready. Type your question below 👇</div>
+    </div>
 
-    100% free: runs entirely in the browser. No server, no keys.
-  -->
+    <!-- Input -->
+    <div class="flex gap-2">
+      <input id="user-input" type="text" placeholder="Type your message..."
+             class="flex-1 px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[--tv-accent]" />
+      <button onclick="sendMessage()" class="px-4 py-2 bg-[--tv-accent] text-white rounded-xl">Send</button>
+    </div>
 
-  <div class="min-h-screen p-4 sm:p-6 lg:p-10">
-    <div class="mx-auto max-w-5xl">
-      <header class="mb-6 sm:mb-8 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="h-10 w-10 rounded-2xl bg-cyan-500 grid place-items-center text-white font-bold shadow">TV</div>
-          <div>
-            <h1 class="text-2xl sm:text-3xl font-bold text-slate-800">TourVibe AI Agent</h1>
-            <p class="text-slate-500 text-sm">Ask for packages, prices, custom itineraries — speak or type.</p>
-          </div>
-        </div>
-        <div class="flex items-center gap-2">
-          <button id="btn-voice" class="px-3 py-2 rounded-xl bg-slate-900 text-white text-sm font-medium shadow hover:bg-slate-800">🎙️ Voice</button>
-          <span id="model-badge" class="text-xs px-2 py-1 rounded-lg bg-slate-200 text-slate-700">Model: not loaded</span>
-        </div>
-      </header>
+    <!-- Quick Prompts -->
+    <div class="mt-4">
+      <p class="text-sm text-slate-500 mb-2">Quick Prompts:</p>
+      <div class="flex flex-wrap gap-2">
+        <button onclick="quickPrompt('Sylhet budget trip details')" class="px-3 py-1 text-sm bg-slate-200 rounded-lg">Sylhet Budget Trip</button>
+        <button onclick="quickPrompt('TourVibe packages')" class="px-3 py-1 text-sm bg-slate-200 rounded-lg">All Packages</button>
+        <button onclick="quickPrompt('How to book on WhatsApp?')" class="px-3 py-1 text-sm bg-slate-200 rounded-lg">How to Book</button>
+      </div>
+    </div>
 
-      <main class="grid lg:grid-cols-3 gap-4 lg:gap-6 items-start">
-        <!-- Chat -->
-        <section class="lg:col-span-2 rounded-2xl glass p-4 sm:p-6 shadow">
-          <div id="chat" class="h-[56vh] sm:h-[60vh] overflow-y-auto pr-1 space-y-4 scrollbar-thin">
-            <!-- Messages injected here -->
-          </div>
-          <form id="composer" class="mt-4 flex items-end gap-2">
-            <textarea id="input" rows="2" placeholder="Ask e.g. ‘3 days Cox’s Bazar under ৳15k with sea view’ or ‘Plan a 5-day Sylhet itinerary’" class="flex-1 rounded-2xl border border-slate-200 p-3 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-white"></textarea>
-            <button class="rounded-2xl px-4 py-3 bg-cyan-500 text-white font-semibold shadow hover:bg-cyan-600">Send</button>
-          </form>
-        </section>
-
-        <!-- Quick tools / Filters -->
-        <aside class="space-y-4">
-          <div class="rounded-2xl glass p-4 shadow">
-            <h2 class="font-semibold text-slate-800 mb-2">Quick filters</h2>
-            <div class="grid grid-cols-2 gap-2">
-              <button data-q="cox" class="quick px-3 py-2 text-sm rounded-xl bg-white border border-slate-200 hover:bg-slate-50">Cox’s Bazar</button>
-              <button data-q="sylhet" class="quick px-3 py-2 text-sm rounded-xl bg-white border border-slate-200 hover:bg-slate-50">Sylhet</button>
-              <button data-q="sundarbans" class="quick px-3 py-2 text-sm rounded-xl bg-white border border-slate-200 hover:bg-slate-50">Sundarbans</button>
-              <button data-q="saint" class="quick px-3 py-2 text-sm rounded-xl bg-white border border-slate-200 hover:bg-slate-50">Saint Martin</button>
-            </div>
-          </div>
-
-          <div class="rounded-2xl glass p-4 shadow">
-            <h2 class="font-semibold text-slate-800 mb-2">Get a quote</h2>
-            <form id="lead" class="space-y-2">
-              <input required id="lead-name" class="w-full rounded-xl border border-slate-200 p-2" placeholder="Full name" />
-              <input required id="lead-phone" class="w-full rounded-xl border border-slate-200 p-2" placeholder="Phone (WhatsApp)" />
-              <input id="lead-email" class="w-full rounded-xl border border-slate-200 p-2" type="email" placeholder="Email (optional)" />
-              <textarea id="lead-notes" class="w-full rounded-xl border border-slate-200 p-2" rows="2" placeholder="Trip notes (dates/budget/destination)"></textarea>
-              <button class="w-full rounded-xl bg-slate-900 text-white py-2 font-semibold hover:bg-slate-800">Submit</button>
-            </form>
-            <a id="wa-link" href="#" target="_blank" class="block mt-2 text-center text-sm text-cyan-700 underline">Or WhatsApp us</a>
-          </div>
-
-          <div class="rounded-2xl glass p-4 shadow">
-            <h2 class="font-semibold text-slate-800 mb-2">Sample prompts</h2>
-            <ul class="text-sm text-slate-600 list-disc pl-5 space-y-1">
-              <li>“2 days in Sylhet for 2 adults, under 12k”</li>
-              <li>“Family-friendly 3N Cox’s Bazar with sea-facing hotel”</li>
-              <li>“Plan 4D3N Sundarbans with boat & guide”</li>
-              <li>“Compare Saint Martin budget vs premium”</li>
-            </ul>
-          </div>
-        </aside>
-      </main>
-
-      <footer class="text-center text-xs text-slate-500 mt-8">© <span id="year"></span> TourVibe — AI agent runs privately in your browser. No data leaves your device unless you submit a lead.</footer>
+    <!-- WhatsApp CTA -->
+    <div class="mt-6">
+      <a href="https://wa.me/8801990723902?text=Hi%20TourVibe!%20I%27m%20interested%20in%20the%20Sylhet%20Ultra-Budget%20Day%20Trip."
+         target="_blank"
+         class="block w-full text-center bg-green-500 text-white py-3 rounded-xl font-semibold shadow hover:bg-green-600">
+        📲 Book on WhatsApp
+      </a>
     </div>
   </div>
 
-  <script type="module">
-    /* =============================
-       CONFIG – EDIT THESE VALUES
-       ============================= */
-    const CONFIG = {
-      AGENCY_NAME: "TourVibe",
-      CURRENCY: "৳",
-      WHATSAPP_NUMBER: "8801990723902", // digits only, country code first
-      WHATSAPP_PREFILL: "Hi TourVibe! I'd like a quote:",
-      WEBHOOK_URL: "", // Optional: Google Apps Script Web App URL to capture leads
-      MODEL_ID: "Llama-3.2-1B-Instruct-q4f32_1-MLC", // very small, faster to load
-      MODEL_LOAD_ON_START: false, // true=load immediately; false=load on first ask
-    };
+  <script>
+    const chatBox = document.getElementById("chat-box");
+    const userInput = document.getElementById("user-input");
 
-    /* =============================
-       DEMO PACKAGE DATA – EDIT/EXTEND
-       ============================= */
-    /**
-     * Each package: id, title, location, nights, days, pricePerPerson, rating, tags[], highlights[], hotelClass, includes[]
-     */
-    const PACKAGES = [$1,
-      {
-        id: "sylhet-2d0n-ultrabudget",
-        title: "Sylhet Budget Day Trip (Group)",
-        location: "Sylhet",
-        nights: 0, days: 2,
-        pricePerPerson: 1199,
-        rating: 4.4,
-        hotelClass: 0,
-        tags: ["budget", "group", "day trip"],
-        highlights: ["Sylhet city", "Mayabi Jharna", "Tea gardens", "Shahporan Mazar", "Jaflong (Zero Point)", "Lalakhal"],
-        includes: ["Dhaka–Sylhet–Dhaka bus (up-down)", "Breakfast (dim-khichuri)", "Lunch (rice, daal, vorta, chicken)"]
-      }
-    ];
-
-    /* =============================
-       UTILITIES
-       ============================= */
-    const $ = (sel, root=document) => root.querySelector(sel);
-    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
-    const sleep = (ms) => new Promise(r=>setTimeout(r, ms));
-    const nowYear = new Date().getFullYear();
-    $("#year").textContent = nowYear;
-
-    // Chat UI helpers
-    const chat = $("#chat");
-    function addMsg(role, html) {
-      const wrap = document.createElement('div');
-      wrap.className = `flex ${role==='user' ? 'justify-end' : 'justify-start'}`;
-      const bubble = document.createElement('div');
-      bubble.className = `${role==='user' ? 'bg-slate-900 text-white' : 'bg-white text-slate-800'} max-w-[85%] rounded-2xl px-4 py-3 shadow`;
-      bubble.innerHTML = html;
-      wrap.appendChild(bubble);
-      chat.appendChild(wrap);
-      chat.scrollTop = chat.scrollHeight;
-    }
-    function addCard(html) {
-      const wrap = document.createElement('div');
-      wrap.innerHTML = `<div class="bg-white rounded-2xl shadow p-3">${html}</div>`;
-      chat.appendChild(wrap);
-      chat.scrollTop = chat.scrollHeight;
+    function appendMessage(sender, text) {
+      const msg = document.createElement("div");
+      msg.className = sender === "user" ? "text-right mb-2" : "text-left mb-2";
+      msg.innerHTML = `<span class="inline-block px-3 py-2 rounded-xl ${sender === "user" ? "bg-[--tv-accent] text-white" : "bg-slate-200 text-slate-800"}">${text}</span>`;
+      chatBox.appendChild(msg);
+      chatBox.scrollTop = chatBox.scrollHeight;
     }
 
-    // Voice (Web Speech API)
-    const synth = window.speechSynthesis;
-    let recognizing = false;
-    let rec;
-    function ensureRecognizer() {
-      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (!SR) return null;
-      const r = new SR();
-      r.lang = 'en-US';
-      r.interimResults = false;
-      r.maxAlternatives = 1;
-      return r;
-    }
-    rec = ensureRecognizer();
-
-    function speak(text) {
-      if (!synth) return;
-      const utt = new SpeechSynthesisUtterance(text);
-      utt.rate = 1.02; utt.pitch = 1; utt.volume = 1;
-      synth.speak(utt);
-    }
-
-    $("#btn-voice").addEventListener('click', () => {
-      if (!rec) { alert('Voice recognition is not supported in this browser. Use Chrome/Edge.'); return; }
-      if (!recognizing) {
-        recognizing = true;
-        $("#btn-voice").textContent = '🛑 Stop';
-        rec.start();
-      } else {
-        recognizing = false;
-        $("#btn-voice").textContent = '🎙️ Voice';
-        try { rec.stop(); } catch {}
-      }
-    });
-
-    if (rec) {
-      rec.onresult = (e) => {
-        const text = e.results[0][0].transcript;
-        $('#input').value = text;
-        $('#composer').dispatchEvent(new Event('submit', {cancelable: true}));
-      };
-      rec.onend = () => {
-        recognizing = false; $("#btn-voice").textContent = '🎙️ Voice';
-      }
-    }
-
-    // Lead capture
-    const leadForm = $("#lead");
-    const waLink = $("#wa-link");
-    function updateWaLink(prefill="") {
-      const to = CONFIG.WHATSAPP_NUMBER?.replace(/\D/g,'') || "";
-      const text = encodeURIComponent(prefill || CONFIG.WHATSAPP_PREFILL);
-      waLink.href = to ? `https://wa.me/${to}?text=${text}` : '#';
-    }
-    updateWaLink();
-
-    leadForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const payload = {
-        agency: CONFIG.AGENCY_NAME,
-        name: $('#lead-name').value.trim(),
-        phone: $('#lead-phone').value.trim(),
-        email: $('#lead-email').value.trim(),
-        notes: $('#lead-notes').value.trim(),
-        ts: new Date().toISOString(),
-      };
-      if (!payload.name || !payload.phone) return alert('Please fill name & phone.');
-
-      if (CONFIG.WEBHOOK_URL) {
-        try {
-          const res = await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', body: JSON.stringify(payload) });
-          if (!res.ok) throw new Error('Bad status');
-          alert('Thanks! We\'ll contact you shortly.');
-        } catch (err) {
-          console.warn('Webhook failed', err);
-          alert('Submitted locally. We\'ll follow up.');
-        }
-      } else {
-        alert('Thanks! (Tip: add your Google Apps Script webhook URL in CONFIG to log to Google Sheets).');
-      }
-
-      // Prefill WhatsApp link dynamically
-      updateWaLink(`Hi ${CONFIG.AGENCY_NAME}! I\'m ${payload.name}. ${payload.notes || 'Please contact me about a tour.'}`);
-    });
-
-    // Simple NLP helpers
-    function parseBudgetDays(text) {
-      const t = text.toLowerCase();
-      const money = /(?:\b|৳|tk|bdt|taka|\$)(\s*\d{3,6})/.exec(t)?.[1]?.replace(/\s/g,'');
-      const days = /(\d{1,2})\s*(?:days?|d)\b/.exec(t)?.[1];
-      const nights = /(\d{1,2})\s*(?:nights?|n)\b/.exec(t)?.[1];
-      return { budget: money ? Number(money) : null, days: days?Number(days):null, nights: nights?Number(nights):null };
-    }
-    function parseDestination(text) {
-      const map = [
-        { key:["cox", "cox’s", "coxs", "cxb", "cox bazar"], val:"Cox’s Bazar" },
-        { key:["sylhet", "ratargul", "jaflong"], val:"Sylhet" },
-        { key:["sundar", "sundarbans", "khulna"], val:"Sundarbans" },
-        { key:["saint", "st. martin", "st martin", "cheradia"], val:"Saint Martin" },
-      ];
-      const low = text.toLowerCase();
-      for (const m of map) if (m.key.some(k=>low.includes(k))) return m.val;
-      return null;
-    }
-
-    function searchPackages({destination=null, maxPrice=null, days=null, nights=null, tags=[]}) {
-      return PACKAGES.filter(p => (
-        (!destination || p.location===destination) &&
-        (!maxPrice || p.pricePerPerson <= maxPrice) &&
-        (!days || p.days === days || p.days === days+1) &&
-        (!nights || p.nights === nights) &&
-        (tags.length===0 || tags.every(t=>p.tags.includes(t)))
-      )).sort((a,b)=>a.pricePerPerson-b.pricePerPerson);
-    }
-
-    function renderPackages(list) {
-      if (!list.length) return '<div class="text-sm text-slate-500">No matching packages found. Try increasing budget or changing dates.</div>';
-      return `
-        <div class="grid sm:grid-cols-2 gap-3">
-          ${list.map(p=>`
-            <div class="border border-slate-200 rounded-xl p-3">
-              <div class="flex items-center justify-between">
-                <h3 class="font-semibold">${p.title}</h3>
-                <span class="text-xs bg-slate-100 px-2 py-1 rounded">${p.location}</span>
-              </div>
-              <div class="text-sm text-slate-600">${p.days}D${p.nights}N · Hotel ${p.hotelClass ? p.hotelClass+"★" : '—'} · Rating ${p.rating}</div>
-              <div class="mt-2 text-slate-800 font-semibold">From ${CONFIG.CURRENCY}${p.pricePerPerson.toLocaleString()}</div>
-              <ul class="mt-2 text-sm text-slate-600 list-disc pl-5 space-y-1">
-                ${p.highlights.slice(0,3).map(h=>`<li>${h}</li>`).join('')}
-              </ul>
-              <div class="mt-3 flex gap-2">
-                <button class="px-3 py-2 text-sm rounded-lg bg-cyan-500 text-white" data-action="details" data-id="${p.id}">Details</button>
-                <a target="_blank" class="px-3 py-2 text-sm rounded-lg bg-slate-900 text-white" href="${waQuoteLink(p)}">WhatsApp quote</a>
-              </div>
-            </div>
-          `).join('')}
-        </div>`;
-    }
-
-    function waQuoteLink(pkg) {
-      const to = CONFIG.WHATSAPP_NUMBER?.replace(/\D/g,'') || "";
-      const text = encodeURIComponent(`Hi ${CONFIG.AGENCY_NAME}! I\'m interested in: ${pkg.title} (${pkg.days}D${pkg.nights}N, ${CONFIG.CURRENCY}${pkg.pricePerPerson}/person). Please share availability & final quote.`);
-      return to ? `https://wa.me/${to}?text=${text}` : '#';
-    }
-
-    function itinerary(destination, days=3) {
-      const ideas = {
-        "Cox’s Bazar": [
-          ["Arrival, Beach time", "Check-in, Laboni Beach sunset, seafood dinner"],
-          ["Inani & Marine Drive", "Himchari viewpoint, Inani Beach, Marine Drive photo stops"],
-          ["Leisure & Departure", "Sugandha market, cafe brunch, depart"]
-        ],
-        "Sylhet": [
-          ["Tea & City", "Tea garden tour, Hazrat Shahjalal Mazar, Kinbridge"],
-          ["Jaflong / Bichanakandi", "Boat ride, stone beds, waterfall views"],
-          ["Ratargul", "Swamp forest boat tour, local lunch, souvenir time"]
-        ],
-        "Sundarbans": [
-          ["Embark", "Khulna jetty boarding, Karamjal, birdwatching"],
-          ["Forest & Creeks", "Harbaria trail, canals, tiger tracking from watchtower"],
-          ["Kotka", "Beach walk, deer & dolphin spotting, campfire on deck"],
-          ["Return", "Back to jetty, transfer to city"]
-        ],
-        "Saint Martin": [
-          ["Sailing", "Teknaf–island ship, beach walk, sunset viewpoint"],
-          ["Island day", "Cheradia trip, snorkeling (seasonal), seafood BBQ"],
-          ["Relax", "Blue Lagoon, coconut gardens, depart"]
-        ],
-      };
-      const base = ideas[destination] || [];
-      const plan = base.slice(0, days).map((d,i)=>({ day: i+1, title: d[0], detail: d[1] }));
-      return plan;
-    }
-
-    function renderItinerary(plan, destination) {
-      if (!plan.length) return '<div class="text-sm text-slate-500">I can craft a custom plan once you confirm destination & days.</div>';
-      return `
-        <div class="space-y-2">
-          <div class="text-sm text-slate-600">Suggested itinerary for <b>${destination}</b>:</div>
-          ${plan.map(d=>`
-            <div class="border border-slate-200 rounded-xl p-3">
-              <div class="font-semibold">Day ${d.day}: ${d.title}</div>
-              <div class="text-sm text-slate-700">${d.detail}</div>
-            </div>
-          `).join('')}
-        </div>`;
-    }
-
-    // LLM (WebLLM) – optional
-    let engine = null;
-    const modelBadge = $('#model-badge');
-    async function ensureModel() {
-      if (engine) return engine;
-      try {
-        modelBadge.textContent = 'Model: loading…';
-        const { CreateWebWorkerMLCEngine } = await import('https://esm.run/web-llm');
-        engine = await CreateWebWorkerMLCEngine(CONFIG.MODEL_ID, {
-          initProgressCallback: (p) => { modelBadge.textContent = `Model: ${Math.round((p.progress||0)*100)}%`; },
-        });
-        modelBadge.textContent = 'Model: ready';
-      } catch (err) {
-        console.warn('Model load failed:', err);
-        modelBadge.textContent = 'Model: unavailable';
-      }
-      return engine;
-    }
-    if (CONFIG.MODEL_LOAD_ON_START) ensureModel();
-
-    async function llmParaphrase(prompt) {
-      if (!engine) return null;
-      try {
-        const templ = [
-          { role: 'system', content: `You are ${CONFIG.AGENCY_NAME}'s friendly travel assistant. Be concise, helpful, and confident.` },
-          { role: 'user', content: prompt }
-        ];
-        const out = await engine.chat.completions.create({ messages: templ, temperature: 0.4, max_tokens: 200 });
-        return out.choices?.[0]?.message?.content?.trim() || null;
-      } catch { return null; }
-    }
-
-    // Orchestrate a reply
-    async function handleUser(text) {
-      const { budget, days, nights } = parseBudgetDays(text);
-      const dest = parseDestination(text);
-
-      // Intent: itinerary
-      if (/itinerary|plan|day\s*by\s*day|schedule/i.test(text)) {
-        const plan = itinerary(dest || 'Cox’s Bazar', days || 3);
-        const html = renderItinerary(plan, dest || 'Cox’s Bazar');
-        addCard(html);
-        speak(`Here is a ${plan.length}-day plan for ${dest || 'Cox’s Bazar'}.`);
-        return;
-      }
-
-      // Intent: show packages / filter
-      const results = searchPackages({ destination: dest, maxPrice: budget, days, nights });
-      const listHtml = renderPackages(results);
-      const leadCta = `<div class='mt-3 text-sm'>Want this? Share travel dates + number of people. I\'ll confirm availability.</div>`;
-
-      // Try an LLM one-liner intro
-      let intro = `Here are some options${dest?` for <b>${dest}</b>`:''}${budget?` within <b>${CONFIG.CURRENCY}${budget.toLocaleString()}</b>`:''}.`;
-      const llm = await ensureModel();
-      if (llm) {
-        const maybe = await llmParaphrase(`Write one short sentence to introduce a list of ${results.length} packages${dest?` for ${dest}`:''}${budget?` under ${CONFIG.CURRENCY}${budget}`:''}. Keep it friendly and concise.`);
-        if (maybe) intro = maybe;
-      }
-
-      addMsg('assistant', `<div class="text-sm">${intro}</div>`);
-      addCard(listHtml + leadCta);
-      speak(`I found ${results.length} matching option${results.length===1?'':'s'}.`);
-    }
-
-    // Chat submit
-    const composer = $('#composer');
-    composer.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const text = $('#input').value.trim();
+    function sendMessage() {
+      const text = userInput.value.trim();
       if (!text) return;
-      addMsg('user', text);
-      $('#input').value = '';
-      await handleUser(text);
+      appendMessage("user", text);
+      userInput.value = "";
+
+      // Simple AI logic (replace with real API later)
+      setTimeout(() => {
+        let reply = "I’m not sure, but you can ask about Sylhet budget trip, packages, or booking.";
+        if (text.toLowerCase().includes("sylhet")) {
+          reply = "🔥 Sylhet Ultra-Budget Day Trip — ৳1,199! Includes Dhaka↔Sylhet bus, breakfast, lunch. Extra: guide & Lalakhal boat (৳500). 📲 Book on WhatsApp: 01990-723902";
+        } else if (text.toLowerCase().includes("package")) {
+          reply = "🎒 TourVibe offers multiple packages! Right now: Sylhet Budget Trip (৳1,199). More coming soon!";
+        } else if (text.toLowerCase().includes("book")) {
+          reply = "✅ To book, WhatsApp us at 01990-723902 with: Date, Number of persons, Pickup point.";
+        }
+        appendMessage("agent", reply);
+      }, 700);
+    }
+
+    function quickPrompt(text) {
+      userInput.value = text;
+      sendMessage();
+    }
+
+    userInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") sendMessage();
     });
-
-    // Quick filter buttons
-    $$('.quick').forEach(btn => btn.addEventListener('click', () => {
-      const map = { cox:"Show Cox’s Bazar packages", sylhet:"Show Sylhet packages", sundarbans:"Show Sundarbans packages", saint:"Show Saint Martin packages" };
-      const q = map[btn.dataset.q] || 'Show packages';
-      addMsg('user', q); handleUser(q);
-    }));
-
-    // Details / dynamic buttons (event delegation)
-    chat.addEventListener('click', (e) => {
-      const btn = e.target.closest('button[data-action]');
-      if (!btn) return;
-      const action = btn.dataset.action;
-      const id = btn.dataset.id;
-      if (action === 'details') {
-        const p = PACKAGES.find(x=>x.id===id);
-        if (!p) return;
-        addCard(`
-          <div class="flex items-center justify-between mb-1">
-            <div class="font-semibold text-slate-800">${p.title}</div>
-            <span class="text-xs bg-slate-100 px-2 py-1 rounded">${p.location}</span>
-          </div>
-          <div class="text-sm text-slate-600">${p.days}D${p.nights}N · Hotel ${p.hotelClass? p.hotelClass+"★":"—"} · Rating ${p.rating}</div>
-          <div class="mt-2 text-slate-800 font-semibold">From ${CONFIG.CURRENCY}${p.pricePerPerson.toLocaleString()} per person</div>
-          <div class="mt-2 text-sm text-slate-700"><b>Includes:</b> ${p.includes.join(', ')}</div>
-          <div class="mt-1 text-sm text-slate-700"><b>Highlights:</b> ${p.highlights.join(', ')}</div>
-          <div class="mt-3 flex gap-2">
-            <a target="_blank" class="px-3 py-2 text-sm rounded-lg bg-slate-900 text-white" href="${waQuoteLink(p)}">WhatsApp quote</a>
-            <button class="px-3 py-2 text-sm rounded-lg bg-cyan-500 text-white" onclick="document.getElementById('lead-notes').value='Interested: ${p.title}'; document.getElementById('lead-name').focus();">Request callback</button>
-          </div>
-        `);
-      }
-    });
-
-    // Warm welcome
-    addMsg('assistant', `<div>
-      <div class="font-semibold">Hi! I\'m ${CONFIG.AGENCY_NAME} AI 👋</div>
-      <div class="text-sm text-slate-700">Tell me your destination, days, budget & number of travelers. I\'ll recommend packages or craft a custom itinerary. Click <b>Voice</b> to talk to me.</div>
-    </div>`);
   </script>
-
-  <!--
-    =============================
-    EMBED THIS AS A POP-IN WIDGET
-    =============================
-    You can also host this file at /ai-agent.html and embed it where you like via iframe:
-
-    <iframe src="/ai-agent.html" title="TourVibe AI" style="width:100%; height:700px; border:0; border-radius:16px; overflow:hidden"></iframe>
-  -->
 </body>
 </html>
