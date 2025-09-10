@@ -1,109 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>TourVibe AI Agent</title>
-
-  <!-- TailwindCSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
   <style>
-    :root { --tv-accent: #06b6d4; }
-    body { font-family: 'Inter', sans-serif; }
-    .glass {
-      backdrop-filter: blur(10px);
-      background: rgba(255,255,255,0.7);
-    }
-    .scrollbar-thin { scrollbar-width: thin; }
-    .scrollbar-thin::-webkit-scrollbar { width: 6px; }
-    .scrollbar-thin::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 9999px;
-    }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+    #chatbox { max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 12px; padding: 15px; }
+    .msg { margin: 8px 0; }
+    .user { text-align: right; color: blue; }
+    .bot { text-align: left; color: green; }
   </style>
 </head>
-<body class="bg-slate-100 min-h-screen flex items-center justify-center p-4">
-
-  <div class="w-full max-w-2xl glass rounded-2xl shadow-lg border border-slate-200 p-6">
-    <h1 class="text-2xl font-bold text-slate-800 mb-3">🤖 TourVibe AI Agent</h1>
-    <p class="text-slate-600 mb-4">Ask me anything about <strong>TourVibe packages, Sylhet trips, pricing, booking info</strong> — I’ll guide you!</p>
-    
-    <!-- Chat Window -->
-    <div id="chat-box" class="h-96 overflow-y-auto bg-white rounded-xl p-4 border scrollbar-thin mb-4">
-      <div class="text-slate-500 text-sm">Agent is ready. Type your question below 👇</div>
-    </div>
-
-    <!-- Input -->
-    <div class="flex gap-2">
-      <input id="user-input" type="text" placeholder="Type your message..."
-             class="flex-1 px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[--tv-accent]" />
-      <button onclick="sendMessage()" class="px-4 py-2 bg-[--tv-accent] text-white rounded-xl">Send</button>
-    </div>
-
-    <!-- Quick Prompts -->
-    <div class="mt-4">
-      <p class="text-sm text-slate-500 mb-2">Quick Prompts:</p>
-      <div class="flex flex-wrap gap-2">
-        <button onclick="quickPrompt('Sylhet budget trip details')" class="px-3 py-1 text-sm bg-slate-200 rounded-lg">Sylhet Budget Trip</button>
-        <button onclick="quickPrompt('TourVibe packages')" class="px-3 py-1 text-sm bg-slate-200 rounded-lg">All Packages</button>
-        <button onclick="quickPrompt('How to book on WhatsApp?')" class="px-3 py-1 text-sm bg-slate-200 rounded-lg">How to Book</button>
-      </div>
-    </div>
-
-    <!-- WhatsApp CTA -->
-    <div class="mt-6">
-      <a href="https://wa.me/8801990723902?text=Hi%20TourVibe!%20I%27m%20interested%20in%20the%20Sylhet%20Ultra-Budget%20Day%20Trip."
-         target="_blank"
-         class="block w-full text-center bg-green-500 text-white py-3 rounded-xl font-semibold shadow hover:bg-green-600">
-        📲 Book on WhatsApp
-      </a>
-    </div>
+<body>
+  <div id="chatbox">
+    <div id="messages"></div>
+    <input id="userInput" placeholder="Ask about TourVibe packages..." style="width:80%;">
+    <button onclick="sendMessage()">Send</button>
   </div>
 
   <script>
-    const chatBox = document.getElementById("chat-box");
-    const userInput = document.getElementById("user-input");
+    async function sendMessage() {
+      const input = document.getElementById("userInput");
+      const msg = input.value.trim();
+      if (!msg) return;
 
-    function appendMessage(sender, text) {
-      const msg = document.createElement("div");
-      msg.className = sender === "user" ? "text-right mb-2" : "text-left mb-2";
-      msg.innerHTML = `<span class="inline-block px-3 py-2 rounded-xl ${sender === "user" ? "bg-[--tv-accent] text-white" : "bg-slate-200 text-slate-800"}">${text}</span>`;
-      chatBox.appendChild(msg);
-      chatBox.scrollTop = chatBox.scrollHeight;
+      // Show user msg
+      const messages = document.getElementById("messages");
+      messages.innerHTML += `<div class="msg user">${msg}</div>`;
+      input.value = "";
+
+      // Call OpenAI API
+      const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer YOUR_OPENAI_API_KEY"
+        },
+        body: JSON.stringify({
+          model: "gpt-4o-mini",
+          messages: [{ role: "system", content: "You are TourVibe AI Agent, a travel assistant for a Bangladeshi travel agency. Help customers with tour packages, bookings, and offers." },
+                     { role: "user", content: msg }]
+        })
+      });
+
+      const data = await response.json();
+      const reply = data.choices[0].message.content;
+      messages.innerHTML += `<div class="msg bot">${reply}</div>`;
     }
-
-    function sendMessage() {
-      const text = userInput.value.trim();
-      if (!text) return;
-      appendMessage("user", text);
-      userInput.value = "";
-
-      // Simple AI logic (replace with real API later)
-      setTimeout(() => {
-        let reply = "I’m not sure, but you can ask about Sylhet budget trip, packages, or booking.";
-        if (text.toLowerCase().includes("sylhet")) {
-          reply = "🔥 Sylhet Ultra-Budget Day Trip — ৳1,199! Includes Dhaka↔Sylhet bus, breakfast, lunch. Extra: guide & Lalakhal boat (৳500). 📲 Book on WhatsApp: 01990-723902";
-        } else if (text.toLowerCase().includes("package")) {
-          reply = "🎒 TourVibe offers multiple packages! Right now: Sylhet Budget Trip (৳1,199). More coming soon!";
-        } else if (text.toLowerCase().includes("book")) {
-          reply = "✅ To book, WhatsApp us at 01990-723902 with: Date, Number of persons, Pickup point.";
-        }
-        appendMessage("agent", reply);
-      }, 700);
-    }
-
-    function quickPrompt(text) {
-      userInput.value = text;
-      sendMessage();
-    }
-
-    userInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") sendMessage();
-    });
   </script>
 </body>
 </html>
