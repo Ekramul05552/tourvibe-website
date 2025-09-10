@@ -6,7 +6,65 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
+  transition: background 0.3s ease, color 0.3s ease;
 }
+
+/* =========================
+   Light Mode (Default)
+   ========================= */
+body.light-mode {
+  background: #f9f9f9;
+  color: #222;
+}
+
+body.light-mode .navbar,
+body.light-mode footer {
+  background: #198754;
+  color: white;
+}
+
+body.light-mode .card-title {
+  color: #198754;
+}
+
+/* =========================
+   Dark Mode
+   ========================= */
+body.dark-mode {
+  background: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode .navbar,
+body.dark-mode footer {
+  background: #0d3622;
+}
+
+body.dark-mode .card {
+  background: #1e1e1e;
+  color: #f1f1f1;
+}
+
+body.dark-mode .card-title {
+  color: #00ff9d;
+}
+
+body.dark-mode a,
+body.dark-mode .nav-link {
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .btn-success {
+  background: #00b37a;
+}
+
+body.dark-mode .btn-success:hover {
+  background: #009963;
+}
+
+/* =========================
+   Shared Styles
+   ========================= */
 
 /* Navbar */
 .navbar {
@@ -28,8 +86,10 @@ body {
 
 /* Hero Section */
 header {
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://source.unsplash.com/1600x600/?bangladesh,nature') center/cover no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url('https://source.unsplash.com/1600x600/?bangladesh,nature') center/cover no-repeat;
   color: white;
+  transition: background 0.3s ease;
 }
 
 header h1 {
@@ -67,7 +127,6 @@ header .btn:hover {
 
 .card-title {
   font-weight: bold;
-  color: #198754;
 }
 
 /* Booking Form */
@@ -83,20 +142,19 @@ header .btn:hover {
 }
 
 /* Sections */
-section h1, 
+section h1,
 section h2 {
   font-weight: bold;
   color: #198754;
 }
 
 section p {
-  color: #333;
+  color: inherit;
 }
 
 /* Footer */
 footer {
   font-size: 0.9rem;
-  background: #198754;
 }
 
 /* Buttons */
