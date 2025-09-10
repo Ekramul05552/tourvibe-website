@@ -73,14 +73,14 @@
 
     const formData = new FormData(this);
 
-    fetch("https://script.google.com/macros/s/AKfycbxF1QalS1lGGHsV1rzcsgUxOHgXOKFC12YrIon1dW7qe6pNOsticUc3A4T9hI7lmod0eg/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbxF1QalS1lGGHsV1rzcsgUxOHgXOKFC12YrIon1dW7qe6pNOsticUc3A4T9hI7lmod0eg/exec", {   // <-- replace with your Google Apps Script Web App URL
       method: "POST",
       body: formData
     })
     .then(response => response.text())
     .then(data => {
-      alert("🎉 আপনার বুকিং অনুরোধ সফলভাবে জমা হয়েছে!");
-      this.reset();
+      // ✅ Redirect to Thank You page
+      window.location.href = "thankyou.html";
     })
     .catch(error => {
       alert("❌ একটি সমস্যা হয়েছে: " + error);
@@ -176,5 +176,6 @@
 
 </body>
 </html>
+
 
 
