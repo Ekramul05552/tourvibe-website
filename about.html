@@ -47,5 +47,41 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Dark Mode Toggle -->
+<div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+  <button id="themeToggle" class="btn btn-light rounded-circle shadow">
+    🌙
+  </button>
+</div>
+
+<script>
+  const toggleBtn = document.getElementById("themeToggle");
+  const body = document.body;
+
+  // Load saved theme
+  if (localStorage.getItem("theme") === "dark") {
+    body.classList.add("dark-mode");
+    toggleBtn.textContent = "☀️";
+  } else {
+    body.classList.add("light-mode");
+  }
+
+  // Toggle theme
+  toggleBtn.addEventListener("click", () => {
+    body.classList.toggle("dark-mode");
+    body.classList.toggle("light-mode");
+
+    if (body.classList.contains("dark-mode")) {
+      toggleBtn.textContent = "☀️";
+      localStorage.setItem("theme", "dark");
+    } else {
+      toggleBtn.textContent = "🌙";
+      localStorage.setItem("theme", "light");
+    }
+  });
+</script>
+
 </body>
 </html>
+
