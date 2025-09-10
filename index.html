@@ -61,7 +61,12 @@
           <label for="persons" class="form-label">কতজন ভ্রমণ করবেন</label>
           <input type="number" id="persons" name="persons" class="form-control" min="1" required>
         </div>
+        
+            <!-- SweetAlert2 CDN -->
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
             <button type="submit" id="submitBtn" class="btn btn-success w-100">✅ বুকিং কনফার্ম করুন</button>
+
 
       </form>
     </div>
@@ -115,13 +120,33 @@ document.getElementById("bookingForm").addEventListener("submit", function(e) {
     method: "POST",
     body: formData
   })
-  .then(() => window.location.href = "thankyou.html")
+  .then(() => {
+    // 🎉 Success Popup
+    Swal.fire({
+      icon: 'success',
+      title: '✅ বুকিং সফল হয়েছে!',
+      text: 'আমাদের টিম শিগগিরই আপনার সাথে যোগাযোগ করবে।',
+      confirmButtonText: 'ঠিক আছে',
+      confirmButtonColor: '#28a745'
+    }).then(() => {
+      window.location.href = "thankyou.html";
+    });
+  })
   .catch(error => {
-    alert("❌ একটি সমস্যা হয়েছে: " + error);
+    // ❌ Error Popup
+    Swal.fire({
+      icon: 'error',
+      title: '❌ সমস্যা হয়েছে!',
+      text: error,
+      confirmButtonText: 'আবার চেষ্টা করুন',
+      confirmButtonColor: '#dc3545'
+    });
+
     btn.disabled = false;
     btn.innerHTML = "✅ বুকিং কনফার্ম করুন"; // Restore original text
   });
 });
+
 
     // ✅ Dark Mode Toggle
     const toggleBtn = document.getElementById("themeToggle");
@@ -149,6 +174,7 @@ document.getElementById("bookingForm").addEventListener("submit", function(e) {
 
 </body>
 </html>
+
 
 
 
