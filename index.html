@@ -6,166 +6,104 @@
   <title>TourVibe</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4SHDYH4FT7"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-4SHDYH4FT7');
-  </script>
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="index.html">TourVibe</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="packages.html">Packages</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-          <li class="nav-item"><a class="nav-link" href="visiting-card-qr/">Visiting Card QR</a></li>
-      </ul>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">TourVibe</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">হোম</a></li>
+          <li class="nav-item"><a class="nav-link" href="packages.html">প্যাকেজসমূহ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#booking">বুকিং</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">যোগাযোগ</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
-<!-- Hero -->
-<header class="text-white text-center py-5 bg-dark">
-  <div class="container">
-    <h1 class="fw-bold">Explore Bangladesh with TourVibe</h1>
-    <p class="lead">Budget friendly group tours across the country 🌿</p>
-    <a href="#booking" class="btn btn-primary btn-lg">Book Now</a>
-  </div>
-</header>
-
-<!-- Packages Preview -->
-<section class="py-5">
-  <div class="container text-center">
-    <h2 class="fw-bold mb-4">Popular Packages</h2>
-    <div class="row g-4">
-
-      <!-- Package 1 -->
-      <div class="col-md-4">
-        <div class="card h-100">
-          <img src="https://source.unsplash.com/400x300/?sylhet,river" class="card-img-top" alt="Sylhet">
-          <div class="card-body">
-            <h5 class="card-title">সিলেট ভ্রমণ</h5>
-            <p class="card-text">মায়াবী ঝর্ণা, জাফলং, চা বাগান, মাজার – সব একসাথে!</p>
-            <p class="fw-bold text-success">৳1,199 / জন</p>
-            <a href="index.html#booking" class="btn btn-primary book-btn" data-package="সিলেট ভ্রমণ">Book Now</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Package 2 -->
-      <div class="col-md-4">
-        <div class="card h-100">
-          <img src="https://source.unsplash.com/400x300/?bandarban,mountain" class="card-img-top" alt="Bandarban">
-          <div class="card-body">
-            <h5 class="card-title">বান্দরবান + কক্সবাজার</h5>
-            <p class="card-text">মারায়াং তং পাহাড়ে ক্যাম্পিং + কক্সবাজার বিচ ভ্রমণ।</p>
-            <p class="fw-bold text-success">৳2,300 / জন</p>
-            <a href="index.html#booking" class="btn btn-primary book-btn" data-package="বান্দরবান + কক্সবাজার">Book Now</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Package 6 -->
-      <div class="col-md-4">
-        <div class="card h-100">
-          <img src="https://source.unsplash.com/400x300/?sajek,valley" class="card-img-top" alt="Sajek">
-          <div class="card-body">
-            <h5 class="card-title">সাজেক ভ্যালি</h5>
-            <p class="card-text">রুইলুই, কংলাক পাহাড়, আলুটিলা গুহা সহ ২ রাত ৩ দিনের ট্যুর।</p>
-            <p class="fw-bold text-success">৳2,150 / জন</p>
-            <a href="index.html#booking" class="btn btn-primary book-btn" data-package="সাজেক ভ্যালি">Book Now</a>
-          </div>
-        </div>
-      </div>
-
+  <!-- Hero Section -->
+  <header class="bg-success text-white text-center py-5">
+    <div class="container">
+      <h1 class="display-4">TourVibe এ স্বাগতম 🌏</h1>
+      <p class="lead">বাংলাদেশের সেরা ট্যুর প্যাকেজ আপনার জন্য!</p>
+      <a href="packages.html" class="btn btn-light btn-lg mt-3">প্যাকেজ দেখুন</a>
     </div>
-    <div class="mt-4">
-      <a href="packages.html" class="btn btn-outline-primary">See All Packages</a>
+  </header>
+
+  <!-- Booking Section -->
+  <section id="booking" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">📌 এখনই বুকিং করুন</h2>
+      <form id="bookingForm" class="p-4 border rounded bg-light">
+        
+        <div class="mb-3">
+          <label for="packageName" class="form-label">প্যাকেজের নাম</label>
+          <input type="text" id="packageName" name="packageName" class="form-control" readonly>
+        </div>
+
+        <div class="mb-3">
+          <label for="fullName" class="form-label">পূর্ণ নাম</label>
+          <input type="text" id="fullName" name="fullName" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="phone" class="form-label">ফোন নাম্বার</label>
+          <input type="tel" id="phone" name="phone" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="persons" class="form-label">কতজন ভ্রমণ করবেন</label>
+          <input type="number" id="persons" name="persons" class="form-control" min="1" required>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100">✅ বুকিং কনফার্ম করুন</button>
+      </form>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Booking Form -->
-<section id="booking" class="py-5 bg-light">
-  <div class="container">
-    <h2 class="fw-bold text-center mb-4">Book Your Tour</h2>
-    <form id="bookingForm" class="mx-auto" style="max-width: 600px;">
-      <div class="mb-3">
-        <input type="text" name="name" placeholder="Your Name" required class="form-control">
-      </div>
-      <div class="mb-3">
-        <input type="tel" name="phoneNumber" placeholder="Your Phone Number" required pattern="[0-9]{11}" maxlength="11" class="form-control">
-      </div>
-      <div class="mb-3">
-        <select name="package" id="packageSelect" required class="form-select">
-          <option value="">Select a Package</option>
-          <option>সিলেট ভ্রমণ</option>
-          <option>বান্দরবান + কক্সবাজার</option>
-          <option>মিরিঞ্জা ভ্যালি + কক্সবাজার</option>
-          <option>টাংগুয়া হাওর ডে ট্যুর</option>
-          <option>মিরিঞ্জা ভ্যালি + কক্সবাজার (ঝুমমঘর)</option>
-          <option>সাজেক ভ্যালি</option>
-        </select>
-      </div>
-      <button type="submit" id="submitBtn" class="btn btn-primary w-100">Submit</button>
-    </form>
-  </div>
-</section>
+  <!-- Contact Section -->
+  <section id="contact" class="py-5 bg-dark text-white text-center">
+    <div class="container">
+      <h2>📞 যোগাযোগ করুন</h2>
+      <p>ইকরামুল ইসলাম (TourVibe)</p>
+      <p>📲 +8801990-723902 (WhatsApp)</p>
+    </div>
+  </section>
 
-<!-- Footer -->
-<footer class="text-white text-center py-3 bg-dark">
-  <p class="mb-0">© 2025 TourVibe – All Rights Reserved</p>
-</footer>
+  <!-- Footer -->
+  <footer class="text-white text-center py-3 bg-success">
+    <p class="mb-0">© 2025 TourVibe – All Rights Reserved</p>
+  </footer>
 
-<script>
-  const scriptURL = "https://script.google.com/macros/s/AKfycbxF1QalS1lGGHsV1rzcsgUxOHgXOKFC12YrIon1dW7qe6pNOsticUc3A4T9hI7lmod0eg/exec";
-  const form = document.getElementById("bookingForm");
-  const submitBtn = document.getElementById("submitBtn");
-  const packageSelect = document.getElementById("packageSelect");
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-  // Autofill package when Book Now is clicked
-  document.querySelectorAll(".book-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const selectedPackage = btn.getAttribute("data-package");
-      packageSelect.value = selectedPackage;
+  <script>
+    // Auto-fill selected package
+    document.addEventListener("DOMContentLoaded", function() {
+      const pkg = localStorage.getItem("selectedPackage");
+      if (pkg) {
+        const pkgField = document.getElementById("packageName");
+        if (pkgField) {
+          pkgField.value = pkg;
+        }
+        localStorage.removeItem("selectedPackage");
+      }
     });
-  });
 
-  form.addEventListener("submit", e => {
-    e.preventDefault();
-    submitBtn.disabled = true;
-    submitBtn.innerText = "Submitting...";
-    fetch(scriptURL, { method: "POST", body: new FormData(form) })
-      .then(() => window.location.href = "thankyou.html")
-      .catch(err => {
-        alert("❌ Error: " + err.message);
-        submitBtn.disabled = false;
-        submitBtn.innerText = "Submit";
-      });
-  });
+    // (Optional) Booking form submission handler
+    document.getElementById("bookingForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("🎉 আপনার বুকিং অনুরোধ গ্রহণ করা হয়েছে! TourVibe টিম শীঘ্রই যোগাযোগ করবে।");
+      this.reset();
+    });
+  </script>
 
-  // Autofill from packages.html
-  window.addEventListener("DOMContentLoaded", () => {
-    const savedPackage = localStorage.getItem("selectedPackage");
-    if (savedPackage) {
-      packageSelect.value = savedPackage;
-      localStorage.removeItem("selectedPackage");
-    }
-  });
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
