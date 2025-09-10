@@ -100,18 +100,28 @@
       }
     });
 
-    // ✅ Booking form submission
-    document.getElementById("bookingForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const formData = new FormData(this);
+   // ✅ Booking form submission
+document.getElementById("bookingForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  
+  const formData = new FormData(this);
+  const btn = document.getElementById("submitBtn");
 
-      fetch("https://script.google.com/macros/s/AKfycbycZc5Et6zJ2ITDQIL1NNXbZ0B160xXfP1LMTCVSW9abOI4knhvgSWfP6FUfInf1ybQ-g/exec", {
-        method: "POST",
-        body: formData
-      })
-      .then(() => window.location.href = "thankyou.html")
-      .catch(error => alert("❌ একটি সমস্যা হয়েছে: " + error));
-    });
+  // 🌀 Loading effect
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status"></span> প্রসেস হচ্ছে...`;
+
+  fetch("https://script.google.com/macros/s/AKfycbycZc5Et6zJ2ITDQIL1NNXbZ0B160xXfP1LMTCVSW9abOI4knhvgSWfP6FUfInf1ybQ-g/exec", {
+    method: "POST",
+    body: formData
+  })
+  .then(() => window.location.href = "thankyou.html")
+  .catch(error => {
+    alert("❌ একটি সমস্যা হয়েছে: " + error);
+    btn.disabled = false;
+    btn.innerHTML = "✅ বুকিং কনফার্ম করুন"; // Restore original text
+  });
+});
 
     // ✅ Dark Mode Toggle
     const toggleBtn = document.getElementById("themeToggle");
@@ -139,6 +149,7 @@
 
 </body>
 </html>
+
 
 
 
