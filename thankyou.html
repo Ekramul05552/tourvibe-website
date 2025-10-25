@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ধন্যবাদ – TourVibe</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body.dark-mode {
+      background-color: #121212;
+      color: #f1f1f1;
+    }
+    body.light-mode {
+      background-color: #f8f9fa;
+      color: #212529;
+    }
+    .success-icon {
+      font-size: 4rem;
+      color: #28a745;
+      animation: pop 0.6s ease-in-out;
+    }
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body class="bg-light text-center">
+
+  <div class="container py-5">
+    <div class="success-icon">✅</div>
+    <h1 class="text-success mb-3">🎉 ধন্যবাদ!</h1>
+    <p class="lead">আপনার বুকিং অনুরোধ সফলভাবে গ্রহণ করা হয়েছে।  
+      আমাদের টিম শীঘ্রই আপনার সাথে যোগাযোগ করবে।</p>
+
+    <!-- Buttons -->
+    <a href="index.html" class="btn btn-success mt-3 me-2">🏠 হোমে ফিরে যান</a>
+    <a href="https://wa.me/8801990723902" target="_blank" class="btn btn-outline-success mt-3">📲 WhatsApp এ মেসেজ করুন</a>
+  </div>
+
+  <!-- Dark Mode Toggle -->
+  <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+    <button id="themeToggle" class="btn btn-light rounded-circle shadow">
+      🌙
+    </button>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("themeToggle");
+    const body = document.body;
+
+    // Load saved theme
+    if (localStorage.getItem("theme") === "dark") {
+      body.classList.add("dark-mode");
+      toggleBtn.textContent = "☀️";
+    } else {
+      body.classList.add("light-mode");
+    }
+
+    // Toggle theme
+    toggleBtn.addEventListener("click", () => {
+      body.classList.toggle("dark-mode");
+      body.classList.toggle("light-mode");
+
+      if (body.classList.contains("dark-mode")) {
+        toggleBtn.textContent = "☀️";
+        localStorage.setItem("theme", "dark");
+      } else {
+        toggleBtn.textContent = "🌙";
+        localStorage.setItem("theme", "light");
+      }
+    });
+  </script>
+
+</body>
+</html>

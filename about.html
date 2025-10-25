@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>আমাদের সম্পর্কে – TourVibe</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="assets/logo.png" alt="TourVibe Logo" style="height: 50px; margin-right: 10px;">
+        <span style="font-weight: bold; font-size: 1.4rem;">
+          <span style="color: rgb(8, 69, 112);">Tour</span><span style="color: rgb(242, 129, 6);">Vibe</span>
+        </span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">হোম</a></li>
+          <li class="nav-item"><a class="nav-link" href="packages.html">প্যাকেজসমূহ</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">আমাদের সম্পর্কে</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">যোগাযোগ</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- About Section -->
+  <section class="py-5">
+    <div class="container text-center">
+      <h1 class="mb-4">🌍 আমাদের সম্পর্কে</h1>
+      <p class="lead">
+        TourVibe বাংলাদেশের একটি বিশ্বস্ত ট্যুর সেবা প্রদানকারী প্রতিষ্ঠান।  
+        আমরা কক্সবাজার, সিলেট, সুন্দরবন, সেন্ট মার্টিনসহ দেশের বিভিন্ন আকর্ষণীয় স্থানে ভ্রমণের সেরা অভিজ্ঞতা নিশ্চিত করি।  
+      </p>
+      <p>
+        আমাদের লক্ষ্য হচ্ছে প্রতিটি ভ্রমণকে স্মরণীয় করে তোলা এবং সাশ্রয়ী মূল্যে বিশ্বমানের সেবা দেওয়া।  
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-white text-center py-3 bg-success">
+    <p class="mb-0">© 2025 TourVibe – All Rights Reserved</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Dark Mode Toggle -->
+<div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+  <button id="themeToggle" class="btn btn-light rounded-circle shadow">
+    🌙
+  </button>
+</div>
+
+<script>
+  const toggleBtn = document.getElementById("themeToggle");
+  const body = document.body;
+
+  // Load saved theme
+  if (localStorage.getItem("theme") === "dark") {
+    body.classList.add("dark-mode");
+    toggleBtn.textContent = "☀️";
+  } else {
+    body.classList.add("light-mode");
+  }
+
+  // Toggle theme
+  toggleBtn.addEventListener("click", () => {
+    body.classList.toggle("dark-mode");
+    body.classList.toggle("light-mode");
+
+    if (body.classList.contains("dark-mode")) {
+      toggleBtn.textContent = "☀️";
+      localStorage.setItem("theme", "dark");
+    } else {
+      toggleBtn.textContent = "🌙";
+      localStorage.setItem("theme", "light");
+    }
+  });
+</script>
+
+</body>
+</html>
+

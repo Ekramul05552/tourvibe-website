@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4SHDYH4FT7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4SHDYH4FT7');
+</script>
+  <!-- Website Title -->
+  <title>TourVibe | Explore Bangladesh</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="tourvibe-favicon.png">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Your CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Your CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- SweetAlert2 (load before we call Swal) -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="assets/logo.png" alt="TourVibe Logo" style="height: 50px; margin-right: 10px;">
+        <span style="font-weight: bold; font-size: 1.4rem;">
+          <span style="color: rgb(8, 69, 112);">Tour</span><span style="color: rgb(242, 129, 6);">Vibe</span>
+        </span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">হোম</a></li>
+        <li class="nav-item"><a class="nav-link" href="packages.html">প্যাকেজসমূহ</a></li>
+        <li class="nav-item"><a class="nav-link" href="#booking">বুকিং</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">যোগাযোগ</a></li>
+      </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="bg-success text-white text-center py-5">
+    <div class="container">
+      
+      <a href="packages.html" class="btn btn-light btn-lg mt-3">প্যাকেজ দেখুন</a>
+    </div>
+  </header>
+
+  <!-- Booking -->
+  <section id="booking" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">📌 এখনই বুকিং করুন</h2>
+
+      <div class="alert alert-info text-center mb-4">
+        <strong>পেমেন্টের জন্য:</strong> Bkash নাম্বার: <strong>01990723902</strong> (Send Money)
+      </div>
+
+      <form id="bookingForm" class="p-4 border rounded bg-light" autocomplete="off">
+        <div class="mb-3">
+          <label for="packageName" class="form-label">প্যাকেজের নাম</label>
+          <select id="packageName" name="package" class="form-control" required>
+            <option value="">প্যাকেজ নির্বাচন করুন</option>
+            <option value="🔥 সবচেয়ে কম খরচে সিলেট ভ্রমণ 🔥">🔥 সবচেয়ে কম খরচে সিলেট ভ্রমণ 🔥</option>
+            <option value="🔥 বান্দরবান + কক্সবাজার ভ্রমণ 🔥">🔥 বান্দরবান + কক্সবাজার ভ্রমণ 🔥</option>
+            <option value="🔥 মিরিঞ্জা ভ্যালি + কক্সবাজার 🔥">🔥 মিরিঞ্জা ভ্যালি + কক্সবাজার 🔥</option>
+            <option value="🔥 টাংগুয়া হাওর ডে ট্যুর (সিজনাল) 🔥">🔥 টাংগুয়া হাওর ডে ট্যুর (সিজনাল) 🔥</option>
+            <option value="🔥কাঞ্চনজঙ্ঘা🔥">🔥কাঞ্চনজঙ্ঘা🔥</option>
+            <option value="🔥সুন্দরবন করমজল ও বাগেরহাটের ষাট গম্বুজ মসজিদ ভ্রমণ🔥">🔥সুন্দরবন করমজল ও বাগেরহাটের ষাট গম্বুজ মসজিদ ভ্রমণ🔥</option>
+            <option value="🔥 কক্সবাজার – হিমছড়ি – লাবনী পয়েন্ট ট্যুর 🔥">🔥 কক্সবাজার – হিমছড়ি – লাবনী পয়েন্ট ট্যুর 🔥</option>
+            <option value="🔥 নিকলী হাওর ভ্রমণ 🔥">🔥 নিকলী হাওর ভ্রমণ 🔥</option>
+            <option value="🔥 বরিশাল ভাসমান পেয়ারা বাজার + ভাসমান পার্ক + গুঠিয়া মসজিদ 🔥">🔥 বরিশাল ভাসমান পেয়ারা বাজার + ভাসমান পার্ক + গুঠিয়া মসজিদ 🔥</option>
+            <option value="🔥 রাঙামাটি ঝর্না ভ্রমণ 🔥">🔥 রাঙামাটি ঝর্না ভ্রমণ 🔥</option>
+            <option value="🔥 সিলেটের জনপ্রিয় স্পটস ভ্রমণ 🔥">🔥 সিলেটের জনপ্রিয় স্পটস ভ্রমণ 🔥</option>
+            <option value="🔥 কক্সবাজার ও হিমছরি ডে ট্যুর 🔥">🔥 কক্সবাজার ও হিমছরি ডে ট্যুর 🔥</option>
+            <option value="🌴বান্দরবান রিলাক্স ট্যুর🌴">🌴বান্দরবান রিলাক্স ট্যুর🌴</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="couponCode" class="form-label">কুপন কোড</label>
+          <input type="text" id="couponCode" name="couponCode" class="form-control" placeholder="কুপন কোড লিখুন (যদি থাকে)">
+          <div id="couponFeedback" class="form-text text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="fullName" class="form-label">পূর্ণ নাম</label>
+          <input type="text" id="fullName" name="name" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="phone" class="form-label">ফোন নাম্বার</label>
+          <input type="tel" id="phone" name="phone" class="form-control" placeholder="01XXXXXXXXX" required pattern="[0-9]{11}">
+        </div>
+
+        <div class="mb-3">
+          <label for="persons" class="form-label">কতজন ভ্রমণ করবেন</label>
+          <input type="number" id="persons" name="persons" class="form-control" min="1" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="bkashTxnId" class="form-label">Bkash Transaction ID</label>
+          <input type="text" id="bkashTxnId" name="bkashTxnId" class="form-control" placeholder="Bkash Transaction ID লিখুন" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="bkashLast4" class="form-label">Bkash নাম্বারের শেষ ৪ ডিজিট</label>
+          <input type="text" id="bkashLast4" name="bkashLast4" class="form-control" placeholder="Bkash নাম্বারের শেষ ৪ ডিজিট লিখুন" required pattern="[0-9]{4}">
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn btn-success w-100">
+          ✅ বুকিং কনফার্ম করুন
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-5 bg-dark text-white text-center">
+    <div class="container">
+      <h2>📞 যোগাযোগ করুন</h2>
+      <p>ইকরামুল ইসলাম (TourVibe)</p>
+      <p>📲 <strong>01990723902</strong> (WhatsApp + Bkash)</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-white text-center py-3 bg-success">
+    <p class="mb-0">© 2025 TourVibe – All Rights Reserved</p>
+  </footer>
+
+  <!-- Dark Mode Toggle -->
+  <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+    <button id="themeToggle" class="btn btn-light rounded-circle shadow">🌙</button>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Main JS: Submit handler, autofill, dark-mode, spinner + SweetAlert2 -->
+  <script>
+  (function(){
+    // CONFIG: replace with your deployed Apps Script Web App URL
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx3_mUk0vWDw0HgVxhqX5mI6FUL4r5kLoLC1Rk1BQeiTOun5RFosIQY5Qh794ncDFU0/exec";
+
+    // Elements
+    const form = document.getElementById("bookingForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const pkgField = document.getElementById("packageName");
+
+    // 1) Auto-fill package from localStorage (if user came from packages.html)
+    document.addEventListener("DOMContentLoaded", () => {
+      try {
+        const saved = localStorage.getItem("selectedPackage");
+        if (saved) {
+          pkgField.value = saved;
+          localStorage.removeItem("selectedPackage");
+        }
+      } catch (err) {
+        console.warn("localStorage error:", err);
+      }
+    });
+
+    // Helper to set button to loading state
+    function setLoading() {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>প্রসেস হচ্ছে...';
+    }
+    function setIdle() {
+      // Re-enable button and reset text if needed
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '✅ বুকিং কনফার্ম করুন';
+    }
+
+    // 2) Form submit handler (async/await for clarity)
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      // Basic client-side validation for phone (ensure 11 digits starting with 0)
+      const phone = (document.getElementById("phone").value || "").trim();
+      if (!/^[0][0-9]{10}$/.test(phone)) {
+        Swal.fire({
+          icon: "warning",
+          title: "ভুল ফোন নাম্বার",
+          text: "ফোন নাম্বার সঠিক নয় — উদাহরণ: 01XXXXXXXXX",
+          confirmButtonColor: "#f77e01"
+        });
+        return;
+      }
+
+      // Prepare form data
+      const formData = new FormData(form);
+
+      try {
+        setLoading();
+
+        const resp = await fetch(WEB_APP_URL, {
+          method: "POST",
+          body: formData,
+          mode: "cors",
+          credentials: "omit"
+        });
+
+        const text = await resp.text();
+
+        if (!resp.ok) {
+          // If Apps Script returned error message, show it
+          throw new Error(text || `Server returned ${resp.status}`);
+        }
+
+        // Success popup then redirect
+        await Swal.fire({
+          icon: "success",
+          title: "✅ বুকিং সফল হয়েছে!",
+          text: "আমাদের টিম শীঘ্রই আপনার সাথে যোগাযোগ করবে।",
+          confirmButtonText: "ঠিক আছে",
+          confirmButtonColor: "#28a745"
+        });
+
+        // redirect
+        window.location.href = "thankyou.html";
+
+      } catch (err) {
+        // Show friendly error
+        console.error("Booking error:", err);
+        await Swal.fire({
+          icon: "error",
+          title: "দুঃখিত — সমস্যা হয়েছে",
+          text: (err && err.message) ? err.message : "সার্ভারে সংযোগ করা যায়নি। আবার চেষ্টা করুন।",
+          confirmButtonText: "আবার চেষ্টা করুন",
+          confirmButtonColor: "#dc3545"
+        });
+
+        setIdle();
+      }
+    });
+
+    // 3) Dark mode toggle (persistent)
+    const toggleBtn = document.getElementById("themeToggle");
+    const body = document.body;
+    if (localStorage.getItem("theme") === "dark") {
+      body.classList.add("dark-mode");
+      toggleBtn.textContent = "☀️";
+    } else {
+      body.classList.add("light-mode");
+    }
+    toggleBtn.addEventListener("click", () => {
+      body.classList.toggle("dark-mode");
+      body.classList.toggle("light-mode");
+      if (body.classList.contains("dark-mode")) {
+        toggleBtn.textContent = "☀️";
+        localStorage.setItem("theme", "dark");
+      } else {
+        toggleBtn.textContent = "🌙";
+        localStorage.setItem("theme", "light");
+      }
+    });
+
+  })();
+  </script>
+</body>
+</html>
+
+
+
+
+

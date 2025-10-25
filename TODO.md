@@ -1,0 +1,12 @@
+- Add highlighted duration to Package 1: <strong>Duration: 1 night, 2 days</strong>
+- Add highlighted duration to Package 2: <strong>Duration: 2 nights, 3 days</strong>
+- Add highlighted duration to Package 3: <strong>Duration: 2 nights, 3 days</strong>
+- Add highlighted duration to Package 4: <strong>Duration: 1 day</strong>
+- Add highlighted duration to Package 5: <strong>Duration: 1 night, 2 days</strong>
+- Add highlighted duration to Package 6: <strong>Duration: 2 nights, 3 days</strong>
+- Add highlighted duration to Package 7: <strong>Duration: 1 night, 2 days</strong>
+- Add highlighted duration to Package 8: <strong>Duration: 1 night, 2 days</strong>
+- Add highlighted duration to Package 9: <strong>Duration: 1 day</strong>
+- Add highlighted duration to Package 10: <strong>Duration: 1 night, 2 days</strong>
+- Add highlighted duration to Package 11: <strong>Duration: 2 nights, 3 days</strong>
+- Package 12 already has duration highlighted
